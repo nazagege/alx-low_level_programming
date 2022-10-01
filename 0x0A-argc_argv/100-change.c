@@ -1,61 +1,38 @@
 #include <stdio.h>
 #include <stdlib.h>
 /**
- * isInteger - checks if s is an integer
- * @s: string to check
- * Return: 0 or 1
+ *main-prints the minimum number of coins
+ *to make change for an amount of money.
+ *@argc:number of commandline arguments.
+ *@argv:pointer to an array of commmand line arguments.
+ *Return:0-success, non-zero-fail.
  */
 
-int isInteger(const char *s)
+int main(int argc, char *argv[])
 {
-	int i = 0;
-
-	while (s[i] != '\0')
+	if (argc == 2)
 	{
-		if (s[i] < '0' || s[i] > '9')
-			return (0);
-		i++;
+	int i, leastcents = 0, money = atoi(argv[1]);
+	int cents[] = {25, 10, 5, 2, 1};
+
+	for (i = 0; i < 5; i++)
+	{
+		if (money >= cents[i])
+		{
+			leastcents += money / cents[i];
+			money = money % cents[i];
+			if (money % cents[i] == 0)
+			{
+				break;
+			}
+		}
 	}
-	return (1);
-}
-
-/**
- * main - adds positive numbers
- * @argc: int
- * @argv: list
- * Return: 0
- */
-
-int main(int argc, char const *argv[])
-{
-	int i = 0, coinUsed = 0, coin = 0;
-	int coins[] = {25, 10, 5, 2, 1};
-
-	if (argc != 2)
+	printf("%d\n", leastcents);
+	}
+	else
 	{
 		printf("Error\n");
 		return (1);
 	}
-	if (isInteger(argv[1]))
-	{
-
-		i = atoi(argv[1]);
-		while (i > 0 && coin <= 4)
-		{
-			if (i >= coins[coin])
-			{
-				i -= coins[coin];
-				coinUsed++;
-			}
-			else
-
-			{
-				coin++;
-			}
-		}
-	}
-
-	printf("%i\n", coinUsed);
-
 	return (0);
 }
